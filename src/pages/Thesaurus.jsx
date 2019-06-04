@@ -16,6 +16,7 @@ export default function Thesaurus() {
   }
     return (
       <>
+      <h1>Thesaurus</h1>
         <form onSubmit={apiCaller}>
           <input
             type="text"

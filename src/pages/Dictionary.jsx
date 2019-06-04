@@ -17,6 +17,7 @@ export default function Dictionary() {
   }
     return (
       <>
+      <h1>Dictionary</h1>
         <form onSubmit={apiCall}>
           <input
             type="text"
