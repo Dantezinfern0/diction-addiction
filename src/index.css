@@ -21,10 +21,22 @@ form {
   justify-content: center;
   color: #788475;
 }
-button {
-  color: #8DAA91;
-}
 h2 {
   color: #8DAA91;
   text-align: center;
+}
+#color {
+  margin: 2rem;
+  padding: 2rem;
+  background-color: #722475;
+  font-size: 2rem;
+  color: #8DAA91;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.padding {
+  padding: 3rem;
 }
