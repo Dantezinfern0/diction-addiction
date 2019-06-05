@@ -8,12 +8,15 @@ export default function Thesaurus() {
   const theKey = '?key=8c234c39-cdc9-45fb-93b7-86ebbfd16948'
   const [word, setWord] = useState('')
   const [definition, setDefinition] = useState({})
+  const [alternate, setAlternate] = useState({})
+  const errorMessage = () => {
+    return console.log('stuff broke')
+  }
   const apiCaller = e => {
     e.preventDefault()
     Axios.get(`${apiUrl}${word}${theKey}`).then(resp => {
       console.log(resp.data)
-      if (word.includes(' ') === true){
-
+      if (word.includes(' ') === false) {
         const data = resp.data[0]
         setDefinition({
           definition: data.shortdef[0],
@@ -22,6 +25,12 @@ export default function Thesaurus() {
           off: data.meta.offensive,
           ants: data.meta.ants[0]
         })
+      } else if (word.includes(' ') === true) {
+        setAlternate({
+          strings: resp.data[0]
+        })
+      } else {
+        errorMessage()
       }
     })
   }
@@ -48,7 +57,11 @@ export default function Thesaurus() {
         </h3>
         <h3>Word: {word}</h3>
         <h3>Type: {definition.type}</h3>
-        <h3>Definition: {definition.definition}</h3>
+        <h3>
+          Definition:{' '}
+          {definition.definition && <h2>{definition.definition}</h2>}
+        </h3>
+        {alternate.strings && <h3>Did You Mean?: {alternate.strings}</h3>}
         <div className="flex">
           <ol>
             <h3>Synonyms</h3>
@@ -59,6 +72,7 @@ export default function Thesaurus() {
           </ol>
           <ol>
             <h3>Antonyms</h3>
+
             {definition.ants &&
               definition.ants.map((item, i) => {
                 return <li key={i}>{item}</li>

@@ -2,14 +2,13 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 import HomeButton from '../components/HomeButton.jsx'
 
-
 export default function Dictionary() {
   const apiUrl =
     'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
   const dicKey = '?key=8b979027-815e-4cca-93ca-e396a7bb4be7'
   const [term, setTerm] = useState('')
-  const [info, setInfo] = useState('')
-  const [suggestion, setSuggestion] = useState('')
+  const [info, setInfo] = useState({})
+  const [suggestion, setSuggestion] = useState({})
   const errorMessage = () => {
     return console.log('stuff broke')
   }
@@ -17,16 +16,20 @@ export default function Dictionary() {
     e.preventDefault()
     Axios.get(`${apiUrl}${term}${dicKey}`).then(resp => {
       console.log('first catch', resp.data[0])
-      if (term.includes(' ') === false){
-      const dataLab = resp.data[0]
-      setInfo({
-        def: dataLab.shortdef,
-        type: dataLab.fl,
-        offense: dataLab.meta.offensive
-      })} else if (term.includes(' ') === true) {
-      setSuggestion({
-        words: resp.data
-      })} else {errorMessage()}
+      if (term.includes(' ') === false) {
+        const dataLab = resp.data[0]
+        setInfo({
+          def: dataLab.shortdef,
+          type: dataLab.fl,
+          offense: dataLab.meta.offensive
+        })
+      } else if (term.includes(' ') === true) {
+        setSuggestion({
+          words: resp.data
+        })
+      } else {
+        errorMessage()
+      }
       console.log('second catch', suggestion.words)
     })
   }
@@ -52,7 +55,12 @@ export default function Dictionary() {
         </h3>
         <h3>Word: {term}</h3>
         <h3>Type: {info.type}</h3>
+        {suggestion.words && <h3>Did you mean?:</h3>}
         <ol>
+          {suggestion.words &&
+            suggestion.words.map((item, i) => {
+              return <li key={i}>{item}</li>
+            })}
           {info.def &&
             info.def.map((item, i) => {
               return <li key={i}>{item}</li>
