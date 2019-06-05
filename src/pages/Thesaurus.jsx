@@ -9,12 +9,12 @@ export default function Thesaurus() {
   const [word, setWord] = useState('')
   const apiCaller = e => {
     e.preventDefault()
-    Axios.post(`${apiUrl}${word}${theKey}`).then(resp => {
+    Axios.get(`${apiUrl}${word}${theKey}`).then(resp => {
       console.log(resp.data)
       setWord({
         name: resp.data[0].hwi.hw,
         type: resp.data[0].fl,
-        def: resp.data[0].shortdef
+        syn: resp.data[0].meta.syns
       })
     })
   }
@@ -31,10 +31,11 @@ export default function Thesaurus() {
         />
         <button onClick={apiCaller}>Look it Up!</button>
       </form>
-      <h3>Word: {word.name}</h3>
-      <h3>Type: {word.type}</h3>
-      <h3>Definition: {word.def}</h3>
-      
+      <p>Word: {word.name}</p>
+      <p>Type: {word.type}</p>
+      <div>{word.syn.map(donkey => {
+        return <p>{donkey}</p>
+      })}</div>
       <HomeButton />
     </>
   )

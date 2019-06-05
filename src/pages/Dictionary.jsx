@@ -9,7 +9,7 @@ export default function Dictionary() {
   const [term, setTerm] = useState('')
   const apiCall = e => {
     e.preventDefault()
-    Axios.post(`${apiUrl}${term}${dicKey}`).then(resp => {
+    Axios.get(`${apiUrl}${term}${dicKey}`).then(resp => {
       console.log(resp.data)
       setTerm({
         name: resp.data[0].hwi.hw,
@@ -33,7 +33,9 @@ export default function Dictionary() {
       </form>
       <p>Word: {term.name}</p>
       <p>Type: {term.type}</p>
-      <p>Definition: {term.def}</p>
+      <div>{term.def.map(donkey => {
+        return <p>{donkey}</p>
+      })}</div>
       <HomeButton />
     </>
   )
