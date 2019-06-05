@@ -12,14 +12,17 @@ export default function Thesaurus() {
     e.preventDefault()
     Axios.get(`${apiUrl}${word}${theKey}`).then(resp => {
       console.log(resp.data)
-      const data = resp.data[0]
-      setDefinition({
-        definition: data.shortdef[0],
-        type: data.fl,
-        syn: data.meta.syns[0],
-        off: data.meta.offensive,
-        ants: data.meta.ants[0]
-      })
+      if (word.includes(' ') === true){
+
+        const data = resp.data[0]
+        setDefinition({
+          definition: data.shortdef[0],
+          type: data.fl,
+          syn: data.meta.syns[0],
+          off: data.meta.offensive,
+          ants: data.meta.ants[0]
+        })
+      }
     })
   }
   console.log({ definition })
