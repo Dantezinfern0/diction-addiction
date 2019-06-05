@@ -33,9 +33,9 @@ export default function Thesaurus() {
       </form>
       <p>Word: {word.name}</p>
       <p>Type: {word.type}</p>
-      <div>{word.syn.map(donkey => {
-        return <p>{donkey}</p>
-      })}</div>
+      {/* <ol>{word.syn.map(donkey => {
+        return <li>{donkey}</li>
+      })}</ol> */}
       <HomeButton />
     </>
   )

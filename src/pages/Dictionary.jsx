@@ -33,9 +33,9 @@ export default function Dictionary() {
       </form>
       <p>Word: {term.name}</p>
       <p>Type: {term.type}</p>
-      <div>{term.def.map(donkey => {
-        return <p>{donkey}</p>
-      })}</div>
+      {/* <ol>{term.def.map(donkey => {
+        return <li>{donkey}</li>
+      })}</ol> */}
       <HomeButton />
     </>
   )
