@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Axios from 'axios'
 import HomeButton from '../components/HomeButton.jsx'
-import ListItem from '../components/ListItem.jsx'
 
 export default function Thesaurus() {
   const apiUrl =
@@ -16,8 +15,8 @@ export default function Thesaurus() {
       const data = resp.data[0]
       setDefinition({
         definition: data.shortdef[0],
-        word: word,
-        syn: data.meta.syns[0]
+        syn: data.meta.syns[0],
+        off: data.meta.offensive
       })
     })
   }
@@ -35,19 +34,15 @@ export default function Thesaurus() {
         />
         <button onClick={apiCaller}>Look it Up!</button>
       </form>
-      <p>Word: {definition.word}</p>
-      <p>definition: {definition.definition}</p>
-      <ol>
+      <h3 className='centered'>Offensive word?</h3>
+      <h3 className={definition.off ? 'red' : 'green'}>{definition.off ? 'Totally Offensive: use with extreme caution' : 'Good to Go'}</h3>
+      <h3>Word: {word}</h3>
+      <h3>definition: {definition.definition}</h3>
+      <ol><h3>Synonyms</h3>
         {definition.syn &&
-          definition.syn.map(item => {
-            return <li>{item}</li>
+          definition.syn.map((item, i) => {
+            return <li key={i}>{item}</li>
           })}
-
-        {/* {word.syn && <li>Type: {word.syn}</li>}
-        {word.syn2 && <li>Type: {word.syn2}</li>}
-        {word.syn3 && <li>Type: {word.syn3}</li>}
-        {word.syn4 && <li>Type: {word.syn4}</li>} */}
-        <ListItem />
       </ol>
       <HomeButton />
     </>
