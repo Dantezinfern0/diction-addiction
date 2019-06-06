@@ -2,15 +2,17 @@ import React, { useState } from 'react'
 import Axios from 'axios'
 import HomeButton from '../components/HomeButton.jsx'
 
+
 export default function Thesaurus() {
   const apiUrl =
     'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/'
   const theKey = '?key=8c234c39-cdc9-45fb-93b7-86ebbfd16948'
   const [word, setWord] = useState('')
-  const [definition, setDefinition] = useState({})
-  const [alternate, setAlternate] = useState({})
+  const [definition, setDefinition] = useState([])
+  const [alternate, setAlternate] = useState([])
   const errorMessage = () => {
     return console.log('stuff broke')
+
   }
   const apiCaller = e => {
     e.preventDefault()
@@ -49,14 +51,8 @@ export default function Thesaurus() {
         <button onClick={apiCaller}>Look it Up!</button>
       </form>
       <div className="squeeze">
-        <h3 className="centered">Offensive word?</h3>
-        <h3 className={definition.off ? 'red' : 'green'}>
-          {definition.off
-            ? 'Totally Offensive: use with extreme caution'
-            : 'Good to Go'}
-        </h3>
         <h3>Word: {word}</h3>
-        <h3>Type: {definition.type}</h3>
+        <h3>Type: {definition.type && definition.type}</h3>
         <h3>
           Definition:{' '}
           {definition.definition && <h2>{definition.definition}</h2>}
@@ -72,7 +68,6 @@ export default function Thesaurus() {
           </ol>
           <ol>
             <h3>Antonyms</h3>
-
             {definition.ants &&
               definition.ants.map((item, i) => {
                 return <li key={i}>{item}</li>
@@ -80,6 +75,13 @@ export default function Thesaurus() {
           </ol>
         </div>
       </div>
+        <footer><h3 className="centered">Offensive word?</h3>
+        <h3 className={definition.off ? 'red' : 'green'}>
+          {definition.off
+            ? 'Totally Offensive: use with extreme caution'
+            : 'Nope. Good to Go'}
+        </h3>
+        </footer>
       <HomeButton />
     </>
   )

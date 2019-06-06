@@ -14,6 +14,8 @@ export default function Dictionary() {
   }
   const apiCall = e => {
     e.preventDefault()
+    if (term.includes(' ')) { term.remove(' ')
+    }
     Axios.get(`${apiUrl}${term}${dicKey}`).then(resp => {
       console.log('first catch', resp.data[0])
       if (term.includes(' ') === false) {
@@ -47,14 +49,8 @@ export default function Dictionary() {
         <button onClick={apiCall}>Look it Up!</button>
       </form>
       <div className="squeeze">
-        <h3 className="centered">Offensive word?</h3>
-        <h3 className={info.offense ? 'red' : 'green'}>
-          {info.offense
-            ? 'Totally Offensive: use with extreme caution'
-            : 'Good to Go'}
-        </h3>
         <h3>Word: {term}</h3>
-        <h3>Type: {info.type}</h3>
+        <h3>Type: {info.type && info.type}</h3>
         {suggestion.words && <h3>Did you mean?:</h3>}
         <ol>
           {suggestion.words &&
@@ -67,6 +63,14 @@ export default function Dictionary() {
             })}
         </ol>
       </div>
+      <footer>
+        <h3 className="centered">Offensive word?</h3>
+        <h3 className={info.offense ? 'red' : 'green'}>
+          {info.offense
+            ? 'Totally Offensive: use with extreme caution'
+            : 'Nope. Good to Go'}
+        </h3>
+      </footer>
       <HomeButton />
     </>
   )
