@@ -11,6 +11,9 @@ export default function Dictionary() {
   const [suggestion, setSuggestion] = useState({})
   const errorMessage = () => {
     return console.log('stuff broke')
+    // need help here how to make the page go to an error page
+    // or remove the space from the end of the word 
+    // which is what breaks the page
   }
   const apiCall = e => {
     e.preventDefault()
