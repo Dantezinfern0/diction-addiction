@@ -1,1 +1,4 @@
 # Diction Addiction
+This is a Dictionary app.  I was playing around with displaying data from an API.  On the page I have an area designated for indicating whther or not a word is offensive.  This data comes from the API and I thought it was interesting so I decided to play around with it.  I used a little JS trick to add classes depending on the data that gets returned.  This effectively turns the background red if the word information returned deems that word offensive.
+
+There are still some bugs to it involving the user typing in garbage.  In the future I plan to explore the solution to that problem and possibly get this code optimized to be a widget or component I can add to another project.
